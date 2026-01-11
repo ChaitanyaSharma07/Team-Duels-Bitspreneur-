@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agristack Integration - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/registration.js"></script>
+    <style>
+        .agristack-option {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .agristack-option.selected {
+            border-color: var(--primary-color);
+            background-color: #f0f7ff;
+        }
+
+        .agristack-login {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid var(--primary-color);
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite;
+            /* Safari */
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 1a of 5</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+
+            <h1 class="reg-title">Agristack Registration</h1>
+            <p class="reg-subtitle">Are you already registered on your State's Agristack platform?</p>
+
+            <div class="agristack-options">
+                <div class="agristack-option" onclick="selectOption('yes')">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <input type="radio" name="agristack_status" id="opt_yes" value="yes">
+                        <div>
+                            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Yes, I have an Agristack ID</h3>
+                            <p class="text-light" style="font-size: 0.9rem; margin: 0;">We can fetch your land and crop
+                                details automatically.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agristack-option" onclick="selectOption('no')">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <input type="radio" name="agristack_status" id="opt_no" value="no">
+                        <div>
+                            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">No, I am not registered</h3>
+                            <p class="text-light" style="font-size: 0.9rem; margin: 0;">Continue to enter details
+                                manually.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loginSection" class="agristack-login">
+                <h3 style="margin-bottom: 1rem;">Login to <span id="stateNameDisplay">State</span> Agristack</h3>
+                <div class="input-group">
+                    <label class="input-label">Agristack ID / Farmer ID</label>
+                    <input type="text" id="agristackId" class="input-field" placeholder="Enter your ID">
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="simulateAgristackLogin()">
+                    Fetch Details & Login
+                </button>
+            </div>
+
+            <div class="form-actions" style="margin-top: 2rem;">
+                <a href="personal.html" class="btn btn-link">Back</a>
+                <button id="continueBtn" class="btn btn-primary" onclick="proceedNext()"
+                    style="display: none;">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load state from previous step
+        document.addEventListener('DOMContentLoaded', () => {
+            const data = JSON.parse(sessionStorage.getItem('greatwhitefin_registration_data') || '{}');
+            if (data.state) {
+                document.getElementById('stateNameDisplay').textContent = data.state;
+            }
+        });
+
+        function selectOption(val) {
+            document.querySelectorAll('.agristack-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById('opt_' + val).checked = true;
+            document.getElementById('opt_' + val).closest('.agristack-option').classList.add('selected');
+
+            if (val === 'yes') {
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('continueBtn').style.display = 'none';
+            } else {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('continueBtn').style.display = 'block';
+            }
+        }
+
+        async function simulateAgristackLogin() {
+            const btn = document.querySelector('#loginSection button');
+            const originalText = btn.innerHTML;
+            const state = document.getElementById('stateNameDisplay').textContent;
+
+            btn.innerHTML = `<span class="loader"></span> Connecting to ${state} Agristack...`;
+            btn.disabled = true;
+
+            // Simulate network delay
+            await new Promise(r => setTimeout(r, 2000));
+
+            btn.innerHTML = `<span class="loader"></span> Fetching Land Records...`;
+            await new Promise(r => setTimeout(r, 1500));
+
+            btn.innerHTML = '✔ Verified';
+
+            // Show success and redirect
+            setTimeout(() => {
+                // Mock filling data
+                let data = JSON.parse(sessionStorage.getItem('greatwhitefin_registration_data') || '{}');
+                data.agristack_verified = true;
+                data.land_size = '2.5 Acres';
+                data.current_crop = 'Wheat, Rice';
+                sessionStorage.setItem('greatwhitefin_registration_data', JSON.stringify(data));
+
+                // Set registration type
+                sessionStorage.setItem('registration_type', 'agristack');
+
+                alert(`Successfully fetched details from ${state} Agristack!`);
+                window.location.href = 'bank.html'; // Proceed to Bank Details (Step 5)
+            }, 500);
+        }
+
+        function proceedNext() {
+            sessionStorage.setItem('registration_type', 'manual');
+            window.location.href = 'land.html';
+        }
+    </script>
+</body>
+
+</html>

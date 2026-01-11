@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Details - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 5 of 5</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <div class="reg-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+            </div>
+
+            <h1 class="reg-title">Bank Details</h1>
+            <p class="reg-subtitle">Final step! Enter your bank information for disbursement.</p>
+
+            <form onsubmit="handleFinalSubmit(event)">
+                <div class="input-group">
+                    <label class="input-label">Do you have a bank account?</label>
+                    <select id="hasBankAccount" class="input-field" onchange="toggleBankDetails()" required>
+                        <option value="" disabled selected>Select Option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div id="bankDetailsSection" style="display: none;">
+                    <div class="input-group">
+                        <label class="input-label">Account Holder Name</label>
+                        <input type="text" id="accountHolderName" class="input-field" placeholder="As per passbook"
+                            required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Account Number</label>
+                        <input type="text" id="accountNumber" class="input-field" placeholder="Bank Account Number"
+                            required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">IFSC Code</label>
+                        <input type="text" id="ifscCode" class="input-field" placeholder="e.g. SBIN0001234"
+                            style="text-transform: uppercase;" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Have you taken any previous loans?</label>
+                        <select id="previousLoans" class="input-field" required>
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <a href="income.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary"
+                        style="background: var(--success-color); border-color: var(--success-color);">Submit
+                        Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/registration.js"></script>
+    <script>
+        function toggleBankDetails() {
+            const hasAccount = document.getElementById('hasBankAccount').value;
+            const bankSection = document.getElementById('bankDetailsSection');
+            const inputs = bankSection.querySelectorAll('input, select');
+
+            if (hasAccount === 'yes') {
+                bankSection.style.display = 'block';
+                inputs.forEach(input => input.required = true);
+            } else {
+                bankSection.style.display = 'none';
+                inputs.forEach(input => input.required = false);
+            }
+        }
+    </script>
+</body>
+
+</html>

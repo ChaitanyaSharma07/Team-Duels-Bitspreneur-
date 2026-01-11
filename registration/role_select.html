@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Role - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .role-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .role-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 82, 204, 0.1);
+        }
+
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            background: #e6efff;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-desc {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 900px; text-align: center; margin-top: 4rem;">
+        <h1 class="reg-title" style="font-size: 2.5rem;">Join GreatWhite Fin</h1>
+        <p class="reg-subtitle" style="font-size: 1.25rem;">Choose how you want to participate in our ecosystem</p>
+
+        <div class="role-cards">
+            <!-- Farmer Option -->
+            <a href="personal.html" class="role-card">
+                <div class="role-icon">🌾</div>
+                <h3 class="role-title">I am a Farmer</h3>
+                <p class="role-desc">Access loans, insurance, and market connections to grow your farm.</p>
+                <span class="btn btn-primary" style="width: 100%;">Register as Farmer</span>
+            </a>
+
+            <!-- Bank/MFI Option -->
+            <a href="../bank/register-step1.html" class="role-card">
+                <div class="role-icon">🏦</div>
+                <h3 class="role-title">Bank / MFI</h3>
+                <p class="role-desc">Partner with us to reach more farmers and manage loan dossiers.</p>
+                <span class="btn btn-outline" style="width: 100%;">Register Institution</span>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

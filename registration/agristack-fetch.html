@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetching Details - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <div class="reg-container">
+        <div class="reg-card" style="text-align: center; padding: 4rem 2rem;">
+            <div id="loading">
+                <div style="font-size: 3rem; margin-bottom: 1rem; animation: spin 2s linear infinite;">🔄</div>
+                <h2 class="reg-title">Connectng to AgriStack...</h2>
+                <p class="reg-subtitle">Verifying your ID and fetching land records.</p>
+            </div>
+
+            <div id="success" style="display: none;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--success-color);">✓</div>
+                <h2 class="reg-title">Details Found!</h2>
+                <p class="reg-subtitle">We found your profile linked to <span id="display-id"
+                        style="font-weight: 700;"></span></p>
+
+                <div
+                    style="text-align: left; background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-size: 0.95rem;">
+                    <p><strong>Name:</strong> <span id="fetched-name">Ramesh Kumar</span></p>
+                    <p><strong>Village:</strong> Palampur, Himachal Pradesh</p>
+                    <p><strong>Land Area:</strong> 2.5 Hectares</p>
+                    <p><strong>Soil Health:</strong> Good (Nitrogen rich)</p>
+                </div>
+
+                <a href="bank.html" class="btn btn-primary" style="width: 100%;">Confirm & Proceed to Bank Details</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate API fetch
+        window.onload = function () {
+            const agriStackId = sessionStorage.getItem('agristack_id') || 'AS-XXXX-XXXX';
+            document.getElementById('display-id').textContent = agriStackId;
+
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+
+                // Pre-fill session storage with "fetched" data so bank.html works
+                const fetchedData = {
+                    full_name: "Ramesh Kumar",
+                    village: "Palampur",
+                    district: "Kangra",
+                    state: "Himachal Pradesh",
+                    land_size: "2.5",
+                    current_crop: "Wheat",
+                    agristack_verified: true,
+                    agristack_id: agriStackId
+                };
+                sessionStorage.setItem('greatwhitefin_registration_data', JSON.stringify(fetchedData));
+
+            }, 2500); // 2.5s delay
+        }
+    </script>
+
+    <style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</body>
+
+</html>

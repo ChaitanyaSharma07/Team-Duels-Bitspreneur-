@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Details - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 2 of 5</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <div class="reg-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <h1 class="reg-title">Land Information</h1>
+            <p class="reg-subtitle">Tell us about your cultivation land.</p>
+
+            <form onsubmit="handleStepSubmit(event, 'land', 'income.html')">
+                <div class="input-group">
+                    <label class="input-label">Total Land Size (in Acres)</label>
+                    <input type="number" id="landSize" class="input-field" placeholder="e.g. 2.5" step="0.1" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Current Crop</label>
+                    <select id="currentCrop" class="input-field" required>
+                        <option value="" disabled selected>Select Crop</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="rice">Rice</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="sugarcane">Sugarcane</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Upload Land Document (7/12 Extract)</label>
+                    <div class="file-upload" onclick="document.getElementById('landDocument').click()">
+                        <span style="font-size: 2rem;">📄</span>
+                        <p style="margin-top: 1rem; color: var(--text-light);">Click to upload or drag and drop</p>
+                        <input type="file" id="landDocument" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Take a Picture of the Land</label>
+                    <input type="file" id="landPhoto" class="input-field" accept="image/*" capture="environment"
+                        onchange="captureLocation()" required>
+                    <small id="locationStatus" style="color: var(--text-light);">Location will be captured with the
+                        photo.</small>
+                    <input type="hidden" id="gpsLatitude">
+                    <input type="hidden" id="gpsLongitude">
+                </div>
+
+                <div class="form-actions">
+                    <a href="personal.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary">Next: Income Proof</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/registration.js"></script>
+    <script>
+        function captureLocation() {
+            const statusEl = document.getElementById('locationStatus');
+
+            if (!navigator.geolocation) {
+                statusEl.textContent = "Geolocation is not supported. Location capture skipped.";
+                statusEl.style.color = "orange";
+                return;
+            }
+
+            statusEl.textContent = "Requesting location permission...";
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    document.getElementById('gpsLatitude').value = lat;
+                    document.getElementById('gpsLongitude').value = lng;
+
+                    statusEl.textContent = `Location captured: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                    statusEl.style.color = "green";
+                },
+                (error) => {
+                    console.warn("Error getting location:", error);
+                    // Fail silently for user experience, just log it
+                    statusEl.textContent = "Location capture skipped (Permission denied or Timeout).";
+                    statusEl.style.color = "orange";
+                    // Ensure backend receives valid numbers if possible, or defaults
+                    document.getElementById('gpsLatitude').value = 0;
+                    document.getElementById('gpsLongitude').value = 0;
+                },
+                { enableHighAccuracy: false, timeout: 5000 } // Reduced accuracy requirement and timeout
+            );
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Requirements - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 4 of 5</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <div class="reg-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <h1 class="reg-title">Loan Requirements</h1>
+            <p class="reg-subtitle">How much funding do you need?</p>
+
+            <form onsubmit="handleStepSubmit(event, 'loan', 'bank.html')">
+                <div class="input-group">
+                    <label class="input-label">Loan Amount Required</label>
+                    <input type="number" id="loanAmount" class="input-field" placeholder="Amount in ₹" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Purpose of Loan</label>
+                    <select id="loanPurpose" class="input-field" required>
+                        <option value="" disabled selected>Select Purpose</option>
+                        <option value="seeds">Seeds & Fertilizers</option>
+                        <option value="equipment">Farm Equipment</option>
+                        <option value="irrigation">Irrigation Systems</option>
+                        <option value="labour">Labour Costs</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Repayment Period</label>
+                    <select id="repaymentPeriod" class="input-field" required>
+                        <option value="6">6 Months</option>
+                        <option value="12">12 Months (1 Year)</option>
+                        <option value="24">24 Months (2 Years)</option>
+                        <option value="36">36 Months (3 Years)</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <a href="income.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary">Next: Bank Details</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/registration.js"></script>
+</body>
+
+</html>

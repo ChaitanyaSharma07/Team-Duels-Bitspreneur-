@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Proof - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 3 of 5</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <div class="reg-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <h1 class="reg-title">Income Verification</h1>
+            <p class="reg-subtitle">Please provide proof of your annual income.</p>
+
+            <form onsubmit="handleStepSubmit(event, 'income', 'bank.html')">
+                <div class="input-group">
+                    <label class="input-label">Annual Income (approx)</label>
+                    <input type="number" id="annualIncome" class="input-field" placeholder="Amount in ₹" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Upload Income Certificate / Panchayat Letter</label>
+                    <div class="file-upload" onclick="document.getElementById('incomeCertificate').click()">
+                        <span style="font-size: 2rem;">📂</span>
+                        <p style="margin-top: 1rem; color: var(--text-light);">Upload Gram Panchayat Certificate</p>
+                        <input type="file" id="incomeCertificate" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="land.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary">Next: Bank Details</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/registration.js"></script>
+</body>
+
+</html>

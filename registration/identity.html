@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .option-card {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option-card:hover,
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .option-icon {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Identity Check</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <h1 class="reg-title">Let's Get Started</h1>
+            <p class="reg-subtitle">First, tell us how you want to verify your identity.</p>
+
+            <form onsubmit="handleIdentitySubmit(event)">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Select Document Type</h3>
+
+                <div class="input-group">
+                    <div class="option-card" onclick="selectOption(this, 'aadhar')">
+                        <div class="option-icon">🆔</div>
+                        <div>
+                            <div style="font-weight: 600;">Aadhar Card</div>
+                            <div style="font-size: 0.8rem; color: var(--text-light);">Instant verification</div>
+                        </div>
+                        <input type="radio" name="doc_type" value="aadhar" checked style="display: none;">
+                    </div>
+
+                    <div class="option-card" onclick="selectOption(this, 'ration')">
+                        <div class="option-icon">📄</div>
+                        <div>
+                            <div style="font-weight: 600;">Ration Card</div>
+                            <div style="font-size: 0.8rem; color: var(--text-light);">Valid proof of residence</div>
+                        </div>
+                        <input type="radio" name="doc_type" value="ration" style="display: none;">
+                    </div>
+
+                    <div class="option-card" onclick="selectOption(this, 'pan')">
+                        <div class="option-icon">💳</div>
+                        <div>
+                            <div style="font-weight: 600;">PAN Card</div>
+                            <div style="font-size: 0.8rem; color: var(--text-light);">If available</div>
+                        </div>
+                        <input type="radio" name="doc_type" value="pan" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div id="upload-container"
+                    style="margin-top: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+                    <label id="upload-label" class="input-label"
+                        style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Upload Aadhar Card</label>
+                    <div style="border: 2px dashed var(--border-color); border-radius: var(--radius-md); padding: 2rem; text-align: center; background: #fafafa; cursor: pointer;"
+                        onclick="document.getElementById('document-upload').click()">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📂</div>
+                        <p style="color: var(--text-light); margin-bottom: 0.5rem;">Click to upload or drag and drop</p>
+                        <p style="font-size: 0.8rem; color: var(--text-light);">Supported: JPG, PNG, PDF (Max 5MB)</p>
+                    </div>
+                    <input type="file" id="document-upload" class="input-field" required accept=".jpg,.jpeg,.png,.pdf"
+                        style="display: none;" onchange="handleFileSelect(this)">
+                    <div id="file-name"
+                        style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--primary-color); display: none;">
+                    </div>
+                </div>
+
+                <div class="input-group"
+                    style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                    <label class="checkbox-label" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Are
+                        you registered on AgriStack?</label>
+                    <div style="display: flex; gap: 2rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="radio" name="agristack_status" value="yes"
+                                style="width: 1.25rem; height: 1.25rem;" onchange="toggleInputs(true)">
+                            <span>Yes, I have an AgriStack ID</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="radio" name="agristack_status" value="no" checked
+                                style="width: 1.25rem; height: 1.25rem;" onchange="toggleInputs(false)">
+                            <span>No, Proceed Manually</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- AgriStack ID Input (Hidden by default) -->
+                <div id="agristack-input-container" style="display: none; margin-top: 1rem;">
+                    <label class="input-label">Enter AgriStack ID / Farmer ID</label>
+                    <input type="text" id="agristackId" class="input-field" placeholder="e.g. AS-1234-5678">
+                </div>
+
+                <div class="form-actions" style="margin-top: 2rem;">
+                    <a href="role_select.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function selectOption(card, value) {
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            const radio = card.querySelector(`input[value="${value}"]`);
+            radio.checked = true;
+
+            // Update upload label
+            const label = document.getElementById('upload-label');
+            const typeName = card.querySelector('div > div:first-child').textContent;
+            label.textContent = `Upload ${typeName}`;
+
+            // Clear previous file selection if switching types (optional, but good UX)
+            const fileInput = document.getElementById('document-upload');
+            const fileNameDisplay = document.getElementById('file-name');
+            fileInput.value = '';
+            fileNameDisplay.style.display = 'none';
+            fileNameDisplay.textContent = '';
+        }
+
+        function handleFileSelect(input) {
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files && input.files[0]) {
+                fileNameDisplay.textContent = `Selected file: ${input.files[0].name}`;
+                fileNameDisplay.style.display = 'block';
+            } else {
+                fileNameDisplay.style.display = 'none';
+            }
+        }
+
+        function toggleInputs(isAgriStack) {
+            document.getElementById('agristack-input-container').style.display = isAgriStack ? 'block' : 'none';
+        }
+
+        function handleIdentitySubmit(e) {
+            e.preventDefault();
+            const docType = document.querySelector('input[name="doc_type"]:checked').value;
+            const isAgriStack = document.querySelector('input[name="agristack_status"]:checked').value === 'yes';
+
+            // Save initial choice
+            sessionStorage.setItem('registration_type', isAgriStack ? 'agristack' : 'manual');
+            sessionStorage.setItem('doc_type', docType);
+
+            if (isAgriStack) {
+                const id = document.getElementById('agristackId').value;
+                sessionStorage.setItem('agristack_id', id);
+                window.location.href = 'agristack-fetch.html';
+            } else {
+                window.location.href = 'personal.html';
+            }
+        }
+    </script>
+</body>
+
+</html>
