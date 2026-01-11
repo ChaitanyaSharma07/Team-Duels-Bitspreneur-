@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eligibility Rules - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 6 of 6</div>
+        </div>
+    </header>
+
+    <div class="reg-container" style="max-width: 800px;">
+        <div class="reg-card">
+            <h1 class="reg-title" style="text-align: left;">Eligibility Rules Setup</h1>
+            <p class="reg-subtitle">Configure the eligibility criteria for your loan products.</p>
+            <br>
+
+            <form action="register-step7.html">
+                <div class="input-group">
+                    <label class="input-label">Rule Name</label>
+                    <input type="text" class="input-field" placeholder="Enter rule name" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Product</label>
+                    <select class="input-field">
+                        <option>Select Product</option>
+                        <option>Kharif Crop Loan 2025</option>
+                    </select>
+                </div>
+
+                <h3 style="margin: 1.5rem 0 0.5rem; font-size: 1rem;">Eligibility Criteria</h3>
+                <div class="input-group">
+                    <label class="input-label">Criteria Type</label>
+                    <select class="input-field">
+                        <option>Land Holding</option>
+                        <option>Credit Score</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Minimum Value</label>
+                    <input type="text" class="input-field" placeholder="Enter minimum value">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Maximum Value</label>
+                    <input type="text" class="input-field" placeholder="Enter maximum value">
+                </div>
+
+                <h3 style="margin: 1.5rem 0 0.5rem; font-size: 1rem;">Rule Application</h3>
+                <div class="input-group"
+                    style="background: white; border: 1px solid var(--border-color); border-radius: 8px;">
+                    <div class="checkbox-group" style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+                        <input type="radio" name="rule_app" id="all_cust" style="width: 1.25rem; height: 1.25rem;"
+                            checked>
+                        <label for="all_cust" class="checkbox-label" style="margin-top: 0;">Apply to all
+                            customers</label>
+                    </div>
+                    <div class="checkbox-group" style="padding: 1rem;">
+                        <input type="radio" name="rule_app" id="spec_cust" style="width: 1.25rem; height: 1.25rem;">
+                        <label for="spec_cust" class="checkbox-label" style="margin-top: 0;">Apply to specific customer
+                            segments</label>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 1rem;">
+                    <label class="input-label">Customer Segment</label>
+                    <select class="input-field">
+                        <option>Small Farmers</option>
+                        <option>Marginal Farmers</option>
+                    </select>
+                </div>
+
+                <div class="form-actions" style="justify-content: flex-end; gap: 1rem;">
+                    <button type="button" class="btn btn-outline" style="border: none;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="background: #0052cc;">Save Rule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../js/bank-registration.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productSelect = document.querySelectorAll('select.input-field')[0]; // Assuming first select is Product based on HTML order
+
+            // Load from session storage (Registration Flow)
+            const sessionData = JSON.parse(sessionStorage.getItem('mfi_registration_data') || '{}');
+            if (sessionData.product_name) {
+                const opt = document.createElement('option');
+                opt.value = sessionData.product_name;
+                opt.textContent = sessionData.product_name;
+                opt.selected = true;
+                productSelect.appendChild(opt);
+
+                // Remove "Select Product" placeholder if we have a valid one, or just let it be
+                // Let's remove the hardcoded example "Kharif Crop Loan 2025" to avoid confusion
+                // Iterate options and remove checking for hardcoded values? 
+                // Simpler: Just clear and add.
+                productSelect.innerHTML = '<option disabled>Select Product</option>';
+                productSelect.appendChild(opt);
+            }
+
+            // Load from DB (Dashboard/Edit Flow - if applicable in future)
+            // ...
+        });
+    </script>
+</body>
+
+</html>

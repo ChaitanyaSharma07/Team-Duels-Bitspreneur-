@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Product Listing - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        function toggleTag(element) {
+            element.classList.toggle('selected');
+        }
+    </script>
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div id="stepIndicator" style="font-size: 0.875rem; color: var(--text-light);">Step 5 of 6</div>
+        </div>
+    </header>
+
+    <div class="reg-container" style="max-width: 800px;">
+        <div class="reg-card">
+            <h1 class="reg-title" style="font-size: 1.25rem; font-weight: 600; color: #42526e;">Screen 5: Loan Product
+                Listing (Repeatable)</h1>
+            <p style="color: var(--text-light); font-style: italic; margin-bottom: 2rem;">Purpose: Core aggregator
+                intelligence</p>
+
+            <form id="loanForm">
+
+                <!-- SECTION 1: LOAN DETAILS -->
+                <div style="background: #f4f5f7; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #42526e; font-size: 1.1rem; font-weight: 700;">1. Loan
+                        Details</h3>
+
+                    <div class="input-group">
+                        <label class="input-label">Product Name</label>
+                        <input type="text" name="product_name" class="input-field"
+                            placeholder="e.g. Kharif Crop Loan 2025" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Loan Type</label>
+                        <select name="product_type" class="input-field">
+                            <option value="Crop Loan">Crop Loan</option>
+                            <option value="KCC">KCC</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Equipment">Equipment</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Loan Amount Range (₹)</label>
+                        <div class="range-inputs">
+                            <input type="number" name="min_loan_amount" class="input-field" placeholder="Min Amount">
+                            <span>-</span>
+                            <input type="number" name="max_loan_amount" class="input-field" placeholder="Max Amount">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Interest Rate (% p.a.)</label>
+                        <input type="text" name="interest_rate" class="input-field" placeholder="e.g. 7% - 9%">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Tenure</label>
+                        <input type="text" name="tenure" class="input-field" placeholder="e.g. 12 months">
+                    </div>
+                </div>
+
+                <!-- SECTION 2: ELIGIBILITY RULES -->
+                <div style="background: #f4f5f7; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #42526e; font-size: 1.1rem; font-weight: 700;">2.
+                        Eligibility Rules</h3>
+
+                    <div class="input-group">
+                        <label class="input-label">Eligibility Requirements</label>
+                        <textarea name="eligibility_criteria" class="input-field" rows="4"
+                            placeholder="Enter the eligibility criteria for this loan (e.g., Minimum land holding of 2 acres, Credit score above 700)."
+                            style="resize: vertical;"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions" style="justify-content: flex-end;">
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            const loanId = urlParams.get('id');
+            const pageTitle = document.querySelector('.reg-title');
+            const stepIndicator = document.getElementById('stepIndicator');
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const form = document.querySelector('form');
+
+            // Set UI based on mode
+            if (mode === 'edit') {
+                pageTitle.textContent = 'Edit Loan Product';
+                submitBtn.textContent = 'Update Product';
+                if (stepIndicator) stepIndicator.style.display = 'none';
+                loadProductData(loanId);
+            } else if (mode === 'new') {
+                pageTitle.textContent = 'Create New Loan Product';
+                submitBtn.textContent = 'Create Product';
+                if (stepIndicator) stepIndicator.style.display = 'none';
+            }
+
+            // Load Data for Edit
+            async function loadProductData(id) {
+                if (!window.supabaseClient) return;
+                const { data, error } = await window.supabaseClient.from('mfi_products').select('*').eq('id', id).single();
+                if (data) {
+                    form.querySelector('[name="product_name"]').value = data.product_name;
+                    form.querySelector('[name="product_type"]').value = data.product_type || 'Crop Loan';
+                    form.querySelector('[name="min_loan_amount"]').value = data.min_loan_amount;
+                    form.querySelector('[name="max_loan_amount"]').value = data.max_loan_amount;
+                    form.querySelector('[name="interest_rate"]').value = data.interest_rate || '';
+                    form.querySelector('[name="tenure"]').value = data.tenure || '';
+                    form.querySelector('[name="eligibility_criteria"]').value = data.eligibility_criteria || '';
+                }
+            }
+
+            // Handle Main Submit (Save and Exit)
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleFormSubmit(false); // false = go to dashboard
+            });
+
+            async function handleFormSubmit(stayOnPage) {
+                // Collect Form Data
+                const formData = new FormData(form);
+                const productName = formData.get('product_name');
+                const productType = formData.get('product_type');
+                const minAmount = formData.get('min_loan_amount') || 0;
+                const maxAmount = formData.get('max_loan_amount') || 0;
+                const interestRate = formData.get('interest_rate');
+                const tenure = formData.get('tenure');
+                const eligibilityCriteria = formData.get('eligibility_criteria');
+
+                // Basic validation
+                if (!productName) {
+                    alert('Product Name is required');
+                    return;
+                }
+
+                const btnClicked = stayOnPage ? (document.querySelector('.btn-outline[style*="width: 100%"]') || submitBtn) : submitBtn;
+                const originalText = btnClicked.textContent;
+                btnClicked.disabled = true;
+                btnClicked.textContent = 'Processing...';
+
+                // CHECK MODE: Registration vs Dashboard
+                const user = JSON.parse(localStorage.getItem('active_user'));
+
+                const payload = {
+                    mfi_id: (user && user.id) ? user.id : 'registration_flow',
+                    product_name: productName,
+                    product_type: productType,
+                    min_loan_amount: parseFloat(minAmount),
+                    max_loan_amount: parseFloat(maxAmount),
+                    interest_rate: interestRate,
+                    tenure: tenure,
+                    eligibility_criteria: eligibilityCriteria
+                };
+
+                // --- REGISTRATION FLOW (No logged in user) ---
+                if (!user || !user.id) {
+                    // Save to Session Storage for final submission in Step 7
+                    const currentData = JSON.parse(sessionStorage.getItem('mfi_registration_data') || '{}');
+                    const updatedData = {
+                        ...currentData,
+                        ...payload
+                    };
+                    sessionStorage.setItem('mfi_registration_data', JSON.stringify(updatedData));
+
+                    // Proceed to next step (Skip Step 6, Go to Step 7)
+                    window.location.href = 'register-step7.html';
+                    return;
+                }
+
+                // --- DASHBOARD FLOW (Logged in user) ---
+                try {
+                    if (!window.supabaseClient) throw new Error('Supabase not initialized');
+
+                    let error;
+                    if (mode === 'edit' && loanId) {
+                        // Update
+                        const res = await window.supabaseClient
+                            .from('mfi_products')
+                            .update(payload)
+                            .eq('id', loanId);
+                        error = res.error;
+                    } else {
+                        // Insert
+                        const res = await window.supabaseClient
+                            .from('mfi_products')
+                            .insert([payload]);
+                        error = res.error;
+                    }
+
+                    if (error) throw error;
+
+                    alert('Product saved successfully!');
+
+                    if (stayOnPage) {
+                        form.reset();
+                        btnClicked.textContent = originalText;
+                        btnClicked.disabled = false;
+                        window.scrollTo(0, 0);
+                    } else {
+                        window.location.href = 'dashboard.html';
+                    }
+
+                } catch (err) {
+                    console.error(err);
+                    if (err.code === '23503') { // Foreign key violation
+                        alert('Session Error: The logged-in MFI account does not verify against the database. Please log out and log in again.');
+                    } else {
+                        alert('Error saving product: ' + err.message);
+                    }
+                    btnClicked.textContent = originalText;
+                    btnClicked.disabled = false;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

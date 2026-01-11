@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Registration - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 2 of 2</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <div class="reg-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step active"></div>
+            </div>
+
+            <h1 class="reg-title">Organization Details</h1>
+            <p class="reg-subtitle">Tell us about your financial institution.</p>
+
+            <form action="register-success.html">
+                <div class="input-group">
+                    <label class="input-label">Organization Name</label>
+                    <input type="text" class="input-field" placeholder="e.g. State Bank of India" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Institution Type</label>
+                    <select class="input-field" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="public_bank">Public Sector Bank</option>
+                        <option value="private_bank">Private Sector Bank</option>
+                        <option value="nbfc">NBFC</option>
+                        <option value="mfi">Micro Finance Institution (MFI)</option>
+                        <option value="cooperative">Cooperative Society</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">License / Registration Number</label>
+                    <input type="text" class="input-field" placeholder="Regulatory ID" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Head Office Address</label>
+                    <textarea class="input-field" rows="3" placeholder="Full address" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <a href="register-personal.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary"
+                        style="background: var(--success-color); border-color: var(--success-color);">Complete
+                        Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

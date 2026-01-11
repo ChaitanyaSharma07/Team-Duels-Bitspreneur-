@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dashboard - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body style="background-color: #f4f5f7;">
+
+    <div class="dashboard-layout">
+
+        <!-- Sidebar (Left) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo" style="color: white; font-size: 1.25rem;">
+                    Dashboard
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-link active" data-tab="home">
+                    <span>🏠</span> Home
+                </a>
+                <a href="#" class="sidebar-link" data-tab="loans">
+                    <span>💳</span> Loans
+                </a>
+                <a href="#" class="sidebar-link" data-tab="applicants">
+                    <span>👥</span> Applicants
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-mini-profile">
+                    <div class="user-info">
+                        <div class="name">Logged in as</div>
+                        <div class="role">State Bank of India</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (Right) -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="page-title">Bank Overview</h1>
+                    <p class="text-light">Manage your lending portfolio and review applications.</p>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <button class="btn btn-primary" id="createLoanBtn"
+                        onclick="window.location.href='register-step5.html?mode=new'">+ Create New Loan Product</button>
+
+                    <!-- Profile Menu -->
+                    <div style="position: relative;">
+                        <button id="profileDropdownBtn"
+                            style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                            <div class="avatar" style="background: var(--primary-color); color: white;">SBI</div>
+                        </button>
+                        <div id="profileDropdownMenu"
+                            style="display: none; position: absolute; right: 0; top: 120%; background: white; padding: 0.5rem; border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(0,0,0,0.15); min-width: 150px; border: 1px solid var(--border-color); z-index: 100;">
+                            <a href="../index.html"
+                                style="display: block; padding: 0.5rem 1rem; color: #dc3545; text-decoration: none; border-radius: 4px;">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- TAB: HOME -->
+            <div id="home" class="tab-content active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">📊</div>
+                        <div class="stat-info">
+                            <h3>Total Loans Given</h3>
+                            <p class="stat-value" id="statTotalLoans">--</p>
+                            <p class="stat-meta" style="color: var(--success-color);">↑ 0% from last month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">⚠️</div>
+                        <div class="stat-info">
+                            <h3>Pending Review</h3>
+                            <p class="stat-value" id="statPending">--</p>
+                            <p class="stat-meta" style="color: #ff9900;">Requires attention</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">💰</div>
+                        <div class="stat-info">
+                            <h3>Total Disbursed</h3>
+                            <p class="stat-value" id="statDisbursed">₹ 0</p>
+                            <p class="stat-meta">Active Portfolio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity / List of Loans Given -->
+                <div
+                    style="background: white; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                    <h3
+                        style="font-size: 1.25rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 1.5rem;">
+                        Recent Loans Disbursed</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Borrower</th>
+                                <th>Loan Type</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-loans-body">
+                            <!-- Rows will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: LOANS -->
+            <div id="loans" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>All Loan Products</h3>
+                    <!-- Toggle to see farmers who applied -->
+                    <button class="btn btn-outline toggle-view-btn" data-view="loan-applicants-section"
+                        onclick="document.getElementById('loans-list-section').style.display='none'; document.getElementById('loan-applicants-section').style.display='block';">View
+                        Applications</button>
+                </div>
+
+                <div id="loans-list-section" class="applicant-view">
+                    <div class="loans-grid">
+                        <!-- Loans populated by JS -->
+                    </div>
+                </div>
+
+                <div id="loan-applicants-section" class="applicant-view" style="display: none;">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <h4>Farmers Applied for Loans</h4>
+                        <button class="btn btn-link"
+                            onclick="document.getElementById('loan-applicants-section').style.display='none'; document.getElementById('loans-list-section').style.display='block';">←
+                            Back to Loans</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Applied For</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: APPLICANTS -->
+            <div id="applicants" class="tab-content">
+                <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                    <button class="btn btn-primary toggle-view-btn"
+                        onclick="document.getElementById('view-applicants').style.display='block'; document.getElementById('view-general').style.display='none';">Applicants</button>
+                    <button class="btn btn-outline toggle-view-btn"
+                        onclick="document.getElementById('view-applicants').style.display='none'; document.getElementById('view-general').style.display='block';">General
+                        Farmers</button>
+                </div>
+
+                <div id="view-applicants" class="applicant-view">
+                    <h3>Loan Applicants List</h3>
+                    <table class="data-table" style="margin-top: 1rem;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Product</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="view-applicants-body">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="view-general" class="applicant-view" style="display: none;">
+                    <h3>Registered Farmers Directory</h3>
+                    <div id="general-farmers-grid"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <!-- Cards populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Farmer Details Modal -->
+    <div class="modal-overlay" id="farmerModal">
+        <div class="modal-container">
+            <button class="modal-close">&times;</button>
+            <h2 class="reg-title"
+                style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">Farmer
+                Profile</h2>
+
+            <!-- Header: Avatar + Main Details -->
+            <div class="farmer-detail-grid"
+                style="grid-template-columns: 100px 1fr; align-items: start; gap: 2rem; margin-bottom: 2rem;">
+                <img id="modalFarmerImage" class="farmer-avatar-large" src="https://placehold.co/150"
+                    alt="Farmer Profile"
+                    style="object-fit: cover; width: 100px; height: 100px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 class="farmer-name"
+                        style="font-size: 1.75rem; margin-bottom: 0.5rem; font-weight: 700; color: var(--secondary-color);">
+                        Farmer Name</h3>
+                    <p class="text-light" id="modalFarmerLocation"
+                        style="font-size: 1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        📍 Location</p>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <span class="status-badge status-approved" id="modalFarmerStatus"
+                            style="padding: 0.35rem 0.75rem;">Verified User</span>
+                        <span class="status-badge status-pending" id="modalCreditScore"
+                            style="background: #e6efff; color: var(--primary-color); padding: 0.35rem 0.75rem; font-weight: 600;">Credit
+                            Score: 720</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Layout for Details -->
+            <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: #fafbfc; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+                <!-- Left Column: Farm Details -->
+                <div>
+                    <h4
+                        style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 2px solid #dfe1e6; padding-bottom: 0.5rem;">
+                        <span>🌿</span> Farm Details
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">Land Area</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);" id="modalLandArea">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">Soil Type</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);" id="modalSoilType">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">Irrigation</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);"
+                                id="modalIrrigation">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">Main Crops</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);" id="modalCrops">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Financial & Bank -->
+                <div>
+                    <h4
+                        style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 2px solid #dfe1e6; padding-bottom: 0.5rem;">
+                        <span>💰</span> Financial & Bank
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">Account No.</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);" id="modalAccount">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">IFSC Code</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);" id="modalIFSC">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="text-light">Bank Name</span>
+                            <span style="font-weight: 600; color: var(--secondary-color);" id="modalBankName">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <span class="text-light" style="flex-shrink: 0;">History</span>
+                            <span
+                                style="font-weight: 600; color: var(--success-color); font-size: 0.9rem; text-align: right; line-height: 1.4;"
+                                id="modalFinancialHistory">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info Footer -->
+            <div
+                style="margin-top: 2rem; background: white; border: 1px solid var(--primary-color); padding: 1.5rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0, 82, 204, 0.05);">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div
+                        style="width: 50px; height: 50px; background: #e6efff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-size: 1.5rem;">
+                        📞</div>
+                    <div>
+                        <p class="text-light" style="font-size: 0.9rem; margin-bottom: 0.25rem;">Mobile Number</p>
+                        <p style="font-weight: 700; font-size: 1.25rem; color: var(--primary-color);" id="modalMobile">
+                            --</p>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <p class="text-light" style="font-size: 0.9rem; margin-bottom: 0.25rem;">Status</p>
+                    <span
+                        style="font-weight: 600; color: var(--success-color); background: #e3fcef; padding: 0.25rem 0.75rem; border-radius: 99px;">Active
+                        Applicant</span>
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="form-actions"
+                style="justify-content: flex-end; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                <button class="btn btn-outline" onclick="document.querySelector('.modal-close').click()">Close</button>
+                <button class="btn btn-primary">Contact Farmer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/bank-dashboard.js"></script>
+</body>
+
+</html>

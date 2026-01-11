@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Information - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 1 of 6</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <h1 class="reg-title" style="text-align: center;">Organization Information</h1>
+            <br>
+
+            <form action="register-step2.html">
+                <div class="input-group">
+                    <label class="input-label">Organization Name</label>
+                    <input type="text" name="org_name" class="input-field" placeholder="Enter Organization Name"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Institution Type</label>
+                    <select class="input-field" name="institution_type" required>
+                        <option value="" disabled selected>Select Institution Type</option>
+                        <option value="public_bank">Public Sector Bank</option>
+                        <option value="private_bank">Private Sector Bank</option>
+                        <option value="nbfc">NBFC</option>
+                        <option value="mfi">Micro Finance Institution (MFI)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">RBI Registration Number</label>
+                    <input type="text" name="rbi_reg_number" class="input-field"
+                        placeholder="Enter RBI Registration Number" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">CIN (if applicable)</label>
+                    <input type="text" name="cin_number" class="input-field" placeholder="Enter CIN">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Registered Office Address</label>
+                    <textarea class="input-field" name="reg_office_address" rows="3"
+                        placeholder="Enter Registered Office Address" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Official Website (optional)</label>
+                    <input type="url" name="website_url" class="input-field" placeholder="Enter Official Website">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Customer Care Email</label>
+                    <input type="email" name="customer_care_email" class="input-field"
+                        placeholder="Enter Customer Care Email" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Customer Care Phone</label>
+                    <input type="tel" name="customer_care_phone" class="input-field"
+                        placeholder="Enter Customer Care Phone" required>
+                </div>
+
+                <div class="form-actions" style="justify-content: flex-end;">
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../js/bank-registration.js"></script>
+</body>
+
+</html>

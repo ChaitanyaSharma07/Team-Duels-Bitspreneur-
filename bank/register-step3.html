@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 3 of 6</div>
+        </div>
+    </header>
+
+    <div class="reg-container" style="max-width: 800px;">
+        <div class="reg-card">
+            <h1 class="reg-title" style="text-align: center;">Compliance</h1>
+            <br>
+
+            <form action="register-step4.html">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="compliance1" required>
+                    <label for="compliance1" class="checkbox-label">We confirm that the MFI/Bank is registered with the
+                        Reserve Bank of India (RBI) and complies with all applicable regulations.</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="compliance2" required>
+                    <label for="compliance2" class="checkbox-label">We confirm that the MFI/Bank has implemented a
+                        robust KYC/AML framework as per RBI guidelines.</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="compliance3" required>
+                    <label for="compliance3" class="checkbox-label">We confirm that the MFI/Bank has a fair practices
+                        code in place and adheres to responsible lending practices.</label>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Grievance Redressal Contact</h3>
+
+                <div class="input-group">
+                    <input type="text" class="input-field" placeholder="Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="input-field" placeholder="Designation" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" class="input-field" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" class="input-field" placeholder="Phone" required>
+                </div>
+
+                <div class="form-actions" style="justify-content: flex-end;">
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

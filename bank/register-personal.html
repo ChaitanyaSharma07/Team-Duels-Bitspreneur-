@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Registration - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 1 of 2</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <div class="reg-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <h1 class="reg-title">Representative Details</h1>
+            <p class="reg-subtitle">Enter your details to register your institution.</p>
+
+            <form action="register-org.html">
+                <div class="input-group">
+                    <label class="input-label">Full Name</label>
+                    <input type="text" class="input-field" placeholder="John Doe" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Work Email</label>
+                    <input type="email" class="input-field" placeholder="name@bank.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Phone Number</label>
+                    <input type="tel" class="input-field" placeholder="Official contact number" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Job Title</label>
+                    <input type="text" class="input-field" placeholder="e.g. Branch Manager" required>
+                </div>
+
+                <div class="form-actions">
+                    <a href="../registration/role_select.html" class="btn btn-link">Back</a>
+                    <button type="submit" class="btn btn-primary">Next: Organization Details</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

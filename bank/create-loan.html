@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Loan Product - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+</head>
+
+<body style="background-color: var(--background-color); font-family: 'Inter', sans-serif;">
+
+    <!-- Simple Header -->
+    <header style="background: white; border-bottom: 1px solid var(--border-color); padding: 1rem 0;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="dashboard.html"
+                style="font-weight: 700; font-size: 1.25rem; color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <a href="dashboard.html" class="btn btn-outline">Back to Dashboard</a>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 800px; padding: 2rem 1rem;">
+        <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--text-color); margin-bottom: 1.5rem;">Create New
+            Loan Product</h1>
+
+        <form id="createLoanForm"
+            style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+
+            <!-- SECTION 1: LOAN DETAILS -->
+            <div style="margin-bottom: 2rem;">
+                <h3
+                    style="margin-bottom: 1.5rem; color: var(--secondary-color); font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">
+                    1. Loan Details</h3>
+
+                <div class="input-group">
+                    <label class="input-label">Product Name</label>
+                    <input type="text" name="product_name" class="input-field" placeholder="e.g. Kharif Crop Loan 2025"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Loan Type</label>
+                    <select name="product_type" class="input-field">
+                        <option value="Crop Loan">Crop Loan</option>
+                        <option value="KCC">KCC</option>
+                        <option value="Term Loan">Term Loan</option>
+                        <option value="Equipment">Equipment</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Loan Amount Range (₹)</label>
+                    <div class="range-inputs" style="display: flex; align-items: center; gap: 1rem;">
+                        <input type="number" name="min_loan_amount" class="input-field" placeholder="Min Amount">
+                        <span style="font-weight: bold; color: #888;">-</span>
+                        <input type="number" name="max_loan_amount" class="input-field" placeholder="Max Amount">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Interest Rate (% p.a.)</label>
+                    <input type="text" name="interest_rate" class="input-field" placeholder="e.g. 7% - 9%">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Tenure</label>
+                    <input type="text" name="tenure" class="input-field" placeholder="e.g. 12 months">
+                </div>
+            </div>
+
+            <!-- SECTION 2: ELIGIBILITY RULES -->
+            <div style="margin-bottom: 2rem;">
+                <h3
+                    style="margin-bottom: 1.5rem; color: var(--secondary-color); font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">
+                    2. Eligibility Rules</h3>
+
+                <div class="input-group">
+                    <label class="input-label" style="font-weight: 600; margin-bottom: 0.75rem; display: block;">Rule
+                        Application</label>
+
+                    <div style="border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+                        <div
+                            style="padding: 1rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem;">
+                            <input type="radio" id="ruleAll" name="rule_application" value="all" checked
+                                style="width: 1.2rem; height: 1.2rem; cursor: pointer;">
+                            <label for="ruleAll" style="font-weight: 500; cursor: pointer;">Apply to all
+                                customers</label>
+                        </div>
+
+                        <div style="padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                            <input type="radio" id="ruleSpecific" name="rule_application" value="specific"
+                                style="width: 1.2rem; height: 1.2rem; cursor: pointer;">
+                            <label for="ruleSpecific" style="font-weight: 500; cursor: pointer;">Apply to specific
+                                customer segments</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="segmentContainer" class="input-group" style="margin-top: 1.5rem; display: none;">
+                    <label class="input-label">Customer Segment</label>
+                    <select id="customerSegment" class="input-field">
+                        <option value="Small Farmers">Small Farmers (Land < 2 Acres)</option>
+                        <option value="Marginal Farmers">Marginal Farmers (Land < 1 Acre)</option>
+                        <option value="Large Farmers">Large Farmers (Land > 5 Acres)</option>
+                        <option value="Tenant Farmers">Tenant Farmers</option>
+                        <option value="Sharecroppers">Sharecroppers</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button type="button" class="btn btn-outline"
+                    onclick="window.location.href='dashboard.html'">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Loan Product</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check Login
+            const user = JSON.parse(localStorage.getItem('active_user'));
+            if (!user || !user.id || user.role !== 'MFI / Bank') {
+                alert('Unauthorized access. Please login as a Bank/MFI.');
+                window.location.href = '../index.html';
+                return;
+            }
+
+            const form = document.getElementById('createLoanForm');
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            // Check if we are in Edit Mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const editId = urlParams.get('id');
+            if (editId) {
+                document.querySelector('h1').textContent = 'Edit Loan Product';
+                submitBtn.textContent = 'Update Product';
+                await loadProductData(editId);
+            }
+
+            // Load Data for Edit
+            async function loadProductData(id) {
+                if (!window.supabaseClient) return;
+                const { data, error } = await window.supabaseClient.from('mfi_products').select('*').eq('id', id).single();
+                if (data) {
+                    form.querySelector('[name="product_name"]').value = data.product_name;
+                    form.querySelector('[name="product_type"]').value = data.product_type || 'Crop Loan';
+                    form.querySelector('[name="min_loan_amount"]').value = data.min_loan_amount;
+                    form.querySelector('[name="max_loan_amount"]').value = data.max_loan_amount;
+                    form.querySelector('[name="interest_rate"]').value = data.interest_rate || '';
+                    form.querySelector('[name="tenure"]').value = data.tenure || '';
+
+                    // Parse Eligibility
+                    const criteria = data.eligibility_criteria || '';
+                    if (criteria.startsWith('Specific Segment:')) {
+                        document.getElementById('ruleSpecific').checked = true;
+                        document.getElementById('segmentContainer').style.display = 'block';
+                        const segment = criteria.replace('Specific Segment: ', '').trim();
+                        document.getElementById('customerSegment').value = segment;
+                    } else {
+                        document.getElementById('ruleAll').checked = true;
+                        document.getElementById('segmentContainer').style.display = 'none';
+                    }
+                }
+            }
+
+            // Radio Button Logic
+            const ruleRadios = document.querySelectorAll('input[name="rule_application"]');
+            ruleRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const segmentContainer = document.getElementById('segmentContainer');
+                    if (e.target.value === 'specific') {
+                        segmentContainer.style.display = 'block';
+                    } else {
+                        segmentContainer.style.display = 'none';
+                    }
+                });
+            });
+
+            // Handle Submit
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Construct Eligibility String for DB
+                let eligibilityString = 'All Customers';
+                const ruleApp = document.querySelector('input[name="rule_application"]:checked').value;
+                if (ruleApp === 'specific') {
+                    const segment = document.getElementById('customerSegment').value;
+                    eligibilityString = `Specific Segment: ${segment}`;
+                }
+
+                const formData = new FormData(form);
+                const payload = {
+                    mfi_id: user.id,
+                    product_name: formData.get('product_name'),
+                    product_type: formData.get('product_type'),
+                    min_loan_amount: parseFloat(formData.get('min_loan_amount')) || 0,
+                    max_loan_amount: parseFloat(formData.get('max_loan_amount')) || 0,
+                    interest_rate: formData.get('interest_rate'),
+                    tenure: formData.get('tenure'),
+                    eligibility_criteria: eligibilityString
+                };
+
+                if (!payload.product_name) {
+                    alert('Product Name is required');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Saving...';
+
+                try {
+                    if (!window.supabaseClient) throw new Error('Supabase client not initialized');
+
+                    let error;
+                    if (editId) {
+                        const res = await window.supabaseClient.from('mfi_products').update(payload).eq('id', editId);
+                        error = res.error;
+                    } else {
+                        const res = await window.supabaseClient.from('mfi_products').insert([payload]);
+                        error = res.error;
+                    }
+
+                    if (error) throw error;
+
+                    alert('Loan Product saved successfully!');
+                    window.location.href = 'dashboard.html';
+
+                } catch (err) {
+                    console.error(err);
+                    alert('Error saving product: ' + err.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = editId ? 'Update Product' : 'Create Loan Product';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Setup - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Step 7 of 7</div>
+        </div>
+    </header>
+
+    <div class="reg-container" style="max-width: 800px;">
+        <div class="reg-card">
+            <h1 class="reg-title" style="text-align: left;">Payment Gateway Setup</h1>
+            <p class="reg-subtitle">Enter your banking details to receive loan repayments from farmers.</p>
+            <br>
+
+            <form action="dashboard.html">
+                <h3 style="margin: 0 0 1rem; font-size: 1.1rem; color: var(--text-color);">Settlement Account Details
+                </h3>
+
+                <div class="input-group">
+                    <label class="input-label">Business Account Name</label>
+                    <input type="text" class="input-field" placeholder="As per bank records" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Account Number</label>
+                    <input type="text" class="input-field" placeholder="Enter bank account number" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">IFSC Code</label>
+                    <input type="text" class="input-field" placeholder="e.g. HDFC0001234"
+                        style="text-transform: uppercase;" required>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem; color: var(--text-color);">Payment Gateway
+                    Integration</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem;">
+                    Configure your merchant details for automated collections.
+                </p>
+
+                <div class="input-group">
+                    <label class="input-label">Merchant ID (MID)</label>
+                    <input type="text" class="input-field" placeholder="Provided by your payment aggregator">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Secret Key / API Key</label>
+                    <input type="password" class="input-field" placeholder="Enter your secret key">
+                </div>
+
+                <div class="input-group" style="background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                    <label class="checkbox-label" style="display: flex; gap: 0.5rem; align-items: flex-start;">
+                        <input type="checkbox" checked style="width: 1.25rem; height: 1.25rem; margin-top: 0.1rem;">
+                        <span>Enable auto-settlement for loan repayments. Funds will be transferred to the account above
+                            T+1 days.</span>
+                    </label>
+                </div>
+
+                <div class="form-actions" style="justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                    <a href="register-step6.html" class="btn btn-outline" style="border: none;">Back</a>
+                    <button type="submit" class="btn btn-primary"
+                        style="background: var(--success-color); border-color: var(--success-color);">
+                        Complete Registration
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/bank-registration.js"></script>
+</body>
+
+</html>
