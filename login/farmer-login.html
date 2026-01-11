@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Login - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">Farmer Login</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <h1 class="reg-title">Farmer Login</h1>
+            <p class="reg-subtitle">Enter your mobile number to access your dashboard.</p>
+
+            <form id="farmerLoginForm">
+                <div class="input-group">
+                    <label class="input-label">Mobile Number</label>
+                    <input type="tel" id="mobileNumber" class="input-field"
+                        placeholder="Enter your 10-digit mobile number" required pattern="[0-9]{10}">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+                </div>
+            </form>
+            <p id="errorMsg" style="color: red; margin-top: 1rem; display: none; text-align: center;"></p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFI Login - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light);">MFI / Bank Login</div>
+        </div>
+    </header>
+
+    <div class="reg-container">
+        <div class="reg-card">
+            <h1 class="reg-title">Partner Login</h1>
+            <p class="reg-subtitle">Enter your organization details to continue.</p>
+
+            <form id="mfiLoginForm">
+                <div class="input-group">
+                    <label class="input-label">Organization Name</label>
+                    <input type="text" id="orgName" class="input-field" placeholder="Enter Organization Name" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">RBI Registration Number</label>
+                    <input type="text" id="rbiRegNumber" class="input-field" placeholder="Enter Registration Number"
+                        required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+                </div>
+            </form>
+            <p id="errorMsg" style="color: red; margin-top: 1rem; display: none; text-align: center;"></p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

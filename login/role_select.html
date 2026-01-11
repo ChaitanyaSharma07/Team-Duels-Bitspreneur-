@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .role-selection-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .role-grid {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .role-card {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--primary-color);
+        }
+
+        .role-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: #f0f4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .role-card:hover .role-icon-wrapper {
+            transform: scale(1.1);
+            background: #e6efff;
+        }
+
+        .role-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .role-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .role-arrow {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .role-card:hover .role-arrow {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="reg-layout">
+    <header class="reg-header">
+        <div class="container header-nav">
+            <a href="../index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin
+            </a>
+            <div style="font-size: 0.875rem; color: var(--text-light); font-weight: 500;">Secure Login</div>
+        </div>
+    </header>
+
+    <div class="role-selection-container">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 class="reg-title" style="font-size: 2.5rem; margin-bottom: 1rem;">Welcome Back</h1>
+            <p class="reg-subtitle" style="font-size: 1.1rem;">Choose your account type to proceed securely.</p>
+        </div>
+
+        <div class="role-grid">
+            <a href="farmer-login.html" class="role-card">
+                <div class="role-icon-wrapper">👨‍🌾</div>
+                <h3 class="role-title">Farmer Login</h3>
+                <p class="role-description">Access your loans, check application status, and view your credit history.
+                </p>
+                <div class="role-arrow">Continue as Farmer <span>→</span></div>
+            </a>
+
+            <a href="mfi-login.html" class="role-card">
+                <div class="role-icon-wrapper">🏦</div>
+                <h3 class="role-title">Partner Login</h3>
+                <p class="role-description">Manage loan applications, disburse funds, and review borrower profiles.</p>
+                <div class="role-arrow">Continue as Partner <span>→</span></div>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <p style="color: var(--text-light);">New to GreatWhite Fin? <a href="../registration/role_select.html"
+                    style="color: var(--primary-color); font-weight: 600; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Create
+                    an account</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
