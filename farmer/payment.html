@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment - GreatWhite Fin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .payment-container {
+            max-width: 500px;
+            margin: 4rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .payment-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0.5rem 0;
+        }
+
+        .payment-method-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-method {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .payment-method.active {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .card-preview {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f4f5f7;">
+
+    <header class="header" style="background: white; border-bottom: 1px solid var(--border-color);">
+        <div class="container header-nav">
+            <a href="dashboard.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                GreatWhite Fin Secure Pay
+            </a>
+            <div>
+                <span style="font-size: 0.875rem; color: var(--text-light);">Secure 128-bit SSL Encrypted</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="payment-container">
+        <div class="payment-header">
+            <span style="color: var(--text-light); font-size: 0.9rem;">Total Payable Amount</span>
+            <div class="payment-amount">₹ 5,200.00</div>
+            <div style="font-size: 0.9rem; color: var(--text-light);">To: State Bank of India • Loan #123456789</div>
+        </div>
+
+        <form action="payment-success.html" onsubmit="handlePayment(event)">
+            <label class="input-label" style="margin-bottom: 1rem;">Select Payment Method</label>
+            <div class="payment-method-selector">
+                <div class="payment-method active" onclick="selectMethod(this, 'card')">Card</div>
+                <div class="payment-method" onclick="selectMethod(this, 'upi')">UPI</div>
+                <div class="payment-method" onclick="selectMethod(this, 'netbanking')">Net Banking</div>
+            </div>
+
+            <!-- Card Details Section -->
+            <div id="card-form">
+                <div class="input-group">
+                    <label class="input-label">Card Number</label>
+                    <input type="text" class="input-field" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <div class="input-group" style="flex: 1;">
+                        <label class="input-label">Expiry Date</label>
+                        <input type="text" class="input-field" placeholder="MM / YY" maxlength="5" required>
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label class="input-label">CVV</label>
+                        <input type="password" class="input-field" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Card Holder Name</label>
+                    <input type="text" class="input-field" placeholder="Name on card" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary"
+                style="width: 100%; margin-top: 1rem; font-size: 1.1rem; padding: 1rem;">
+                Pay ₹ 5,200
+            </button>
+            <a href="dashboard.html" class="btn btn-link"
+                style="display: block; text-align: center; margin-top: 1rem;">Cancel Payment</a>
+        </form>
+    </div>
+
+    <script>
+        function selectMethod(element, method) {
+            // Visual toggle
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Logic to swap forms could go here (simplified for prototype)
+        }
+
+        function handlePayment(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerText = 'Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                window.location.href = 'dashboard.html?payment=success';
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
